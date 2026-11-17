@@ -1,0 +1,86 @@
+﻿@model _25DH110874_MyStore.Models.Order
+
+@{
+    ViewBag.Title = "Order details";
+}
+
+<h2>Order #@Model.OrderID</h2>
+
+<div>
+    <h4>Order summary</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Customer
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.CustomerName)
+        </dd>
+
+        <dt>
+            Order date
+        </dt>
+        <dd>
+            @Model.OrderDate.ToString("g")
+        </dd>
+
+        <dt>
+            Payment status
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PaymentStatus)
+        </dd>
+
+        <dt>
+            Payment method
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PaymentMethod)
+        </dd>
+
+        <dt>
+            Delivery method
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryMethod)
+        </dd>
+
+        <dt>
+            Shipping address
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ShippingAddress)
+        </dd>
+
+        <dt>
+            Order total
+        </dt>
+        <dd>
+            @Model.TotalAmount.ToString("C")
+        </dd>
+    </dl>
+</div>
+
+<h4>Items in this order</h4>
+<table class="table">
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Item price</th>
+        <th>Line total</th>
+    </tr>
+    @foreach (var item in Model.OrderDetails)
+    {
+        <tr>
+            <td>@item.Product.ProductName</td>
+            <td>@item.Quantity</td>
+            <td>@item.UnitPrice.ToString("C")</td>
+            <td>@((item.TotalPrice ?? (item.Quantity * item.UnitPrice)).ToString("C"))</td>
+        </tr>
+    }
+</table>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.OrderID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

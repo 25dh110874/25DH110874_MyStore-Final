@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - QUẢN TRỊ WEBSITE</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        /* Fix the layout flow */
+        .pagination-container ul {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        /* Format every link and span using Bootstrap 5's native pagination engine variables */
+        .pagination-container li a, .pagination-container li span {
+            position: relative;
+            display: block;
+            padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
+            font-size: var(--bs-pagination-font-size);
+            color: var(--bs-pagination-color);
+            text-decoration: none;
+            background-color: var(--bs-pagination-bg);
+            border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
+        }
+
+            .pagination-container li a:hover {
+                color: var(--bs-pagination-hover-color);
+                background-color: var(--bs-pagination-hover-bg);
+                border-color: var(--bs-pagination-hover-border-color);
+            }
+
+        /* Map the active page styling */
+        .pagination-container li.active span {
+            z-index: 3;
+            color: var(--bs-pagination-active-color);
+            background-color: var(--bs-pagination-active-bg);
+            border-color: var(--bs-pagination-active-border-color);
+        }
+
+        /* Map disabled buttons (like prev/next arrows at boundaries) */
+        .pagination-container li.disabled span {
+            color: var(--bs-pagination-disabled-color);
+            pointer-events: none;
+            background-color: var(--bs-pagination-disabled-bg);
+            border-color: var(--bs-pagination-disabled-border-color);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("My Store", "Index", "Admin/Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Danh mục", "Index", "Admin/Categories", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Sản phẩm", "Index", "Admin/Products", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Khách hàng", "Index", "Admin/Customers", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Đơn hàng", "Index", "Admin/Orders", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Tài khoản", "Index", "Admin/Users", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Tên ứng dụng</p>
+            <h4>Contacts</h4>
+            <p>Tên các thành viên trong nhóm</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

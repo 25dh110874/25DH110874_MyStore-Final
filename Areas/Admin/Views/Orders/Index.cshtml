@@ -1,0 +1,72 @@
+﻿@model IEnumerable<_25DH110874_MyStore.Models.Order>
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+<h2>Orders</h2>
+
+<p>
+    @Html.ActionLink("Create New Order", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Order
+        </th>
+        <th>
+            Customer
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Items
+        </th>
+        <th>
+            Order total
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.OrderID.ToString(), "Details", new { id = item.OrderID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+        </td>
+        <td>
+            @item.OrderDate.ToString("g")
+        </td>
+        <td>
+            <ul class="list-unstyled">
+                @foreach (var detail in item.OrderDetails)
+                {
+                    <li>
+                        <strong>@detail.Product.ProductName</strong>
+                        &times; @detail.Quantity
+                        <span class="text-muted">(@detail.UnitPrice.ToString("C") each)</span>
+                        <span class="pull-right">@((detail.TotalPrice ?? (detail.Quantity * detail.UnitPrice)).ToString("C"))</span>
+                    </li>
+                }
+            </ul>
+        </td>
+        <td>
+            @item.TotalAmount.ToString("C")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentStatus)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.OrderID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.OrderID })
+        </td>
+    </tr>
+}
+
+</table>
